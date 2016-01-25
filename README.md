@@ -1,6 +1,6 @@
 # IDA-Dockerized
 Dockerized version of IDA Pro by Hex Rays.
-By wrapping IDA with an ultra-fast, minimal command-line interface, this project is especially suitable for automating the use of IDAPython scripts and batch analysis.
+By wrapping IDA with an ultra-fast, minimal command line interface, this project is especially suitable for automating the use of IDAPython scripts and batch analysis.
 
 This docker image is configured to have everything you need for a working IDA machine, ready to run scripts:
 * pip install - Easily install external python libraries that integrate into the IDAPython engine
