@@ -18,7 +18,7 @@ Legit IDA Pro (Linux version) with its installation password
 * docker build -t ida .
 
 ## Simple Usage
-    docker run -it -v "$PWD":/project -w /project ida idal.py -Sexamples/hello.py -A /project/file_to_reverse.exe
+    docker run -it -v "$PWD":/project -w /project ida idal.py -Sexamples/hello.py -A file_to_reverse.exe
     
 This command runs the IDAPython script "examples/hello.py" on the file "file_to_reverse.exe".
 
@@ -27,7 +27,7 @@ The command creates a volume in the docker container for the current directory a
 ## Advanced Usage
 For IDA 64 bit files:
 ```
-docker run -it -v "$PWD":/project -w /project ida idal64.py -Sexamples/hello.py -A /project/file_to_reverse.exe
+docker run -it -v "$PWD":/project -w /project ida idal64.py -Sexamples/hello.py -A file_to_reverse.exe
 ```
 
 You can use any of the [IDA command line arguments](https://www.hex-rays.com/products/ida/support/idadoc/417.shtml), except for GUI-related switches:
@@ -51,11 +51,11 @@ Just add the library you wish to the "requirements.txt" file before you build th
 ## IDA-Dockerized in Windows
 In Windows, docker has its problems parsing paths, so you'll need to add some '/' like this:
 ```
-docker run -it -v "/$PWD":/project -w //project ida idal.py -Sexamples/hello.py -A //project/file_to_reverse.exe
+docker run -it -v "/$PWD":/project -w //project ida idal.py -Sexamples/hello.py -A file_to_reverse.exe
 ```
 Or for 64 bit files:
 ```
-docker run -it -v "/$PWD":/project -w //project ida idal64.py -Sexamples/hello.py -A //project/file_to_reverse.exe
+docker run -it -v "/$PWD":/project -w //project ida idal64.py -Sexamples/hello.py -A file_to_reverse.exe
 ```
 
 ## Notes
