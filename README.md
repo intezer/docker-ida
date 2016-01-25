@@ -5,7 +5,7 @@ By wrapping IDA with an ultra-fast, minimal command line interface, this project
 This docker image is configured to have everything you need for a working IDA machine, ready to run scripts:
 * IDA Pro (Linux version) automatically installed with all its dependencies
 * pip install - Easily install external python libraries that integrate into the IDAPython engine
-* [sark](https://github.com/tmr232/Sark) - The excellent library by Tamir Bahar is preinstalled, to simplify IDAPython scripting
+* [Sark](https://github.com/tmr232/Sark) - The excellent library by Tamir Bahar is preinstalled, to simplify IDAPython scripting
 * Special wrapper script in order to quickly run IDA without ANY screen output
 
 ## Requirements
