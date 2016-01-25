@@ -99,3 +99,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+.idea
+
+# IDA installer
+./ida.run
