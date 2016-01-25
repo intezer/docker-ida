@@ -1,23 +1,27 @@
 # IDA-Dockerized
 Dockerized version of IDA Pro by Hex Rays.
-By wrapping IDA with an ultra-fast, minimal command-line interface (and eliminating all kinds of GUI), this project is especially suitable for automating the use of IDAPython scripts and batch analysis.
+By wrapping IDA with an ultra-fast, minimal command-line interface, this project is especially suitable for automating the use of IDAPython scripts and batch analysis.
 
 This docker image is configured to have everything you need for a working IDA machine, ready to run scripts:
-* pip install - Already configured to effect the IDAPython engine as soon as you install external python libraries in the machine
-* [sark](https://github.com/tmr232/Sark) - The excellent library by Tamir Bahar, to simplify IDAPython scripting
-* Special wrapper script in order quickly run IDA without ANY screen output
+* pip install - Easily install external python libraries that integrate into the IDAPython engine
+* [sark](https://github.com/tmr232/Sark) - The excellent library by Tamir Bahar is preinstalled, to simplify IDAPython scripting
+* Special wrapper script in order to quickly run IDA without ANY screen output
 
 ## Requirements
-Legit IDA Pro (Linux version) with its installation password (tested on IDA 6.9)
+Legit IDA Pro (Linux version) with its installation password
 
 ## Setup
 * Clone this repository
-* IMPORTANT: Add your IDA Pro installation file (.run) to the repository's folder, naming it: ida.run
-* IMPORTANT: Insert your IDA installation password in the Dockerfile (see instructions in the Dockerfile)
+* IMPORTANT: Add your IDA Pro installation file (.run) to the repository root folder, naming it: ida.run
+* IMPORTANT: Insert your IDA installation password in the Dockerfile (see instructions in Dockerfile)
 * docker build -t ida .
 
 ## Simple Usage
     docker run -it -v "$PWD":/project -w /project ida idal.py -Sexamples/hello.py -A /project/file_to_reverse.exe
+    
+This command runs the IDAPython script "examples/hello.py" on the file "file_to_reverse.exe".
+
+The command creates a volume in the docker container for the current directory and place it in "/project" path in the container.  That way you can use the current directory as a source for the sample you want to reverse, the script you want to run, and to get output files out of IDA.
 
 ## Advanced Usage
 For IDA 64 bit files:
