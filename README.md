@@ -12,8 +12,8 @@ Legit IDA Pro (Linux version) with its installation password (tested on IDA 6.9)
 
 ## Setup
 * Clone this repository
-* Add your IDA Pro installation file (.run) to the repository's folder, naming it: ida.run
-* Insert your IDA installation password in the Dockerfile (see instructions in the Dockerfile)
+* IMPORTANT: Add your IDA Pro installation file (.run) to the repository's folder, naming it: ida.run
+* IMPORTANT: Insert your IDA installation password in the Dockerfile (see instructions in the Dockerfile)
 * docker build -t ida .
 
 ## Simple Usage
