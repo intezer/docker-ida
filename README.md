@@ -32,17 +32,17 @@ docker run -it -v "$PWD":/project -w /project ida idal64.py -Sexamples/hello.py 
 
 You can use any of the [IDA command line arguments](https://www.hex-rays.com/products/ida/support/idadoc/417.shtml), except for GUI-related switches:
 ```
-    docker run -it -v "$PWD":/project -w /project ida idal.py [arg1] [arg2] [arg3]
+docker run -it -v "$PWD":/project -w /project ida idal.py [arg1] [arg2] [arg3]
 ```
 
 You could also run IDA in the awful TVision terminal-GUI mode if you really want to.  Just open a shell using:
 ```
-    docker run -it -v "$PWD":/project -w /project ida bash
+docker run -it -v "$PWD":/project -w /project ida bash
 ```
 And run the regular IDA binary (idal or idal64), it's already in the PATH:
 ```
-    idal arg1 arg2...
-    idal64 arg1 arg2...
+idal arg1 arg2...
+idal64 arg1 arg2...
 ```
 
 ## Installing external libraries
@@ -51,11 +51,11 @@ Just add the library you wish to the "requirements.txt" file before you build th
 ## IDA-Dockerized in Windows
 In Windows, docker has its problems parsing paths, so you'll need to add some '/' like this:
 ```
-    docker run -it -v "/$PWD":/project -w //project ida idal.py -Sexamples/hello.py -A //project/file_to_reverse.exe
+docker run -it -v "/$PWD":/project -w //project ida idal.py -Sexamples/hello.py -A //project/file_to_reverse.exe
 ```
 Or for 64 bit files:
 ```
-    docker run -it -v "/$PWD":/project -w //project ida idal64.py -Sexamples/hello.py -A //project/file_to_reverse.exe
+docker run -it -v "/$PWD":/project -w //project ida idal64.py -Sexamples/hello.py -A //project/file_to_reverse.exe
 ```
 
 ## Notes
