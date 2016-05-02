@@ -11,9 +11,11 @@ RUN pip2 install -r /installation/requirements.txt
 
 # Install IDA
 RUN mkdir /ida
+
 # Copy IDAPython helper script to IDA installation folder
-COPY idal.py /ida/
-COPY idal64.py /ida/
+ADD scripts/idal.py /usr/local/bin/idal.py
+ADD scripts/idal64.py /usr/local/bin/idal64.py
+
 # ida.run is the IDA installation executable file
 RUN chmod +x /installation/$IDA_INSTALLATION_FILE
 
@@ -23,8 +25,8 @@ RUN printf "\n\n\n\n\n\ny\n$IDA_PASSWORD\n/ida\ny\ny\n" | /installation/ida.run
 # Create a special file in order to prevent IDA to ask for license acceptance before executing IDA
 RUN touch /ida/license.displayed
 
-RUN mkdir /project
-WORKDIR /project
+RUN mkdir /shared_workspace
+WORKDIR /shared_workspace
 
 ENV PATH /ida:$PATH
 ENV TERM xterm

@@ -1,3 +1,4 @@
+# This is the foundation for all language-stack images (see: https://hub.docker.com/_/buildpack-deps/)
 FROM buildpack-deps
 
 # Add 32 bit architecture support for IDA
