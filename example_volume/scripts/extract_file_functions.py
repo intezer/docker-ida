@@ -2,6 +2,9 @@ import idc
 import idaapi
 import idautils
 
+# Initialize IDA Python
+idaapi.autoWait()
+
 # List all function names into func_names
 func_names = []
 for function_address in idautils.Functions():
