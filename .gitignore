@@ -1,3 +1,5 @@
+/example_volume/result.txt
+/ida/ida.run
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

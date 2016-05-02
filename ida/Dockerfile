@@ -17,7 +17,10 @@ ADD scripts/idal.py /usr/local/bin/idal.py
 ADD scripts/idal64.py /usr/local/bin/idal64.py
 
 # ida.run is the IDA installation executable file
-RUN chmod +x /installation/$IDA_INSTALLATION_FILE
+RUN chmod +x \
+    /installation/$IDA_INSTALLATION_FILE \
+    /usr/local/bin/idal.py \
+    /usr/local/bin/idal64.py
 
 # Run IDA installation - echo keyboard input including installation password and "yes" commands
 RUN printf "\n\n\n\n\n\ny\n$IDA_PASSWORD\n/ida\ny\ny\n" | /installation/ida.run
