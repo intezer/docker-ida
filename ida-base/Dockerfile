@@ -16,5 +16,4 @@ RUN wget http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.8_0.9.
 RUN dpkg -i /installation/libssl0.9.8_0.9.8o-4squeeze14_i386.deb
 
 # Install pip for python 2.7
-RUN wget https://bootstrap.pypa.io/get-pip.py -P /installation
-RUN /usr/bin/python2.7 /installation/get-pip.py
+RUN apt-get -y install python-pip
