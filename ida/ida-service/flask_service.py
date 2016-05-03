@@ -25,7 +25,7 @@ def execute_command():
 
     command = request.form['command']
     if not command.startswith('idal ') and not command.startswith('idal64 '):
-        return jsonify(error="Command parameter is not 'idal' or 'idal64"), 422
+        return jsonify(error="'idal' and 'idal64' are the only valid commands"), 422
 
     try:
         logger.info('Executing %s' % command)

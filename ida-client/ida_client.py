@@ -7,16 +7,16 @@ import requests
 
 class Client:
     """
-    This class is used to communicate with a container of IDA via HTTP
+    Used for sending commands to one or more IDA containers over HTTP.
     """
 
     def __init__(self, urls):
         """
-        :param urls: The addresses of the containers hosts with the port used to publish the container
-        e.g: [http://host-1:4001, http://host-2:4001]
+        >>> client = Client(['http://host-1:4001', 'http://host-2:4001'])
+        :param urls: List of addresses of IDA containers including the published port
         """
         if urls is None or not any(urls):
-            raise Exception('Cannot create IdaClient with no urls')
+            raise ValueError('Invalide "urls" value')
         self._urls = itertools.cycle(urls)
 
     def send_command(self, command, timeout=None) -> bool:
@@ -26,8 +26,12 @@ class Client:
         :param timeout: A timeout given for the command (optional)
         :returns True if the command ran successfully, else false
         """
-        res = requests.post('%s/ida/command' % next(self._urls), data=dict(command=command, timeout=timeout))
-        return res.status_code == 200
+        data_to_send = dict(command=command)
+        if timeout is not None:
+            data_to_send['timeout'] = timeout
+
+        response = requests.post('%s/ida/command' % next(self._urls), data=data_to_send)
+        return response.status_code == 200
 
     def execute_multiple_command(self, commands, timeout=None):
         """
