@@ -1,6 +1,6 @@
 # IDA in Docker
 Run [IDA Pro by Hex Rays] (https://www.hex-rays.com/products/ida/) disassembler in [Docker] (https://www.docker.com/) containers.
-Ideal for automating, scaling and distributing the use of IDAPython scripts.
+Ideal for automating, scaling and distributing the use of IDAPython scripts to perform large-scale reverse engineering tasks.
 
 ## Requirements
 - Machine with Docker installed. [Install Docker] (https://docs.docker.com/engine/installation/)
@@ -72,7 +72,7 @@ True
 ## Advanced Usage
 - Add additional python libraries to the repository's `ida/requirements.txt` before building the image.
 
-  The IDAPython scripting library [Sark](https://github.com/tmr232/Sark) is already installed.
+  The [Sark](https://github.com/tmr232/Sark) library is already installed for rapid IDAPython scripting.
 - For IDA 64 bit files:
 
     ```
