@@ -1,3 +1,5 @@
 pexpect
 networkx
 git+https://github.com/tmr232/Sark.git#egg=Sarks
+flask
+gunicorn
