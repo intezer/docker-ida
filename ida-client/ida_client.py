@@ -33,7 +33,7 @@ class Client:
         response = requests.post('%s/ida/command' % next(self._urls), data=data_to_send)
         return response.status_code == 200
 
-    def execute_multiple_command(self, commands, timeout=None):
+    def send_multiple_commands(self, commands, timeout=None):
         """
         Send a batch of commands to an IDA container via HTTP
         :param commands: An iterable of commands to send to the container

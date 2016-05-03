@@ -46,8 +46,8 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 1. Start two IDA containers as daemon:
     
     ```
-    $ sudo docker run -v ida-docker/example_volume:/shared -p 4001:4000 -d ida 4
-    $ sudo docker run -v ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
+    $ sudo docker run -v /path/to/current/folder/ida-docker/example_volume:/shared -p 4001:4000 -d ida 4
+    $ sudo docker run -v /path/to/current/folder/ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
     ```
     
     
@@ -75,7 +75,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     >>> files = ['zlib.dll.sample', 'Win32OpenSSL.sample']
     >>>
     >>> # Building list of commands to send at once
-    >>> commands = ['idal -Sida_python_script.py -A %s' % file for file in files]
+    >>> commands = ['idal -Sextract_file_functions.py -A %s' % file for file in files]
     >>>
     >>> client.send_multiple_commands(commands, timeout=600)
     [True, True]
