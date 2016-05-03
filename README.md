@@ -43,43 +43,43 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 
 ## Usage
 
-Start two IDA containers as daemon:
+1. Start two IDA containers as daemon:
+    
+    ```
+    $ sudo docker run -v ida-docker/example_volume:/shared -p 4001:4000 -d ida 4
+    $ sudo docker run -v ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
+    ```
+    
+    
+2. Install `ida_client`:
+    
+    On Windows:
+    ```
+    $ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client"
+    ```
 
-```
-$ sudo docker run -v ida-docker/example_volume:/shared -p 4001:4000 -d ida 4
-$ sudo docker run -v ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
-```
+    On Linux / Mac OS X:
+    ```
+    $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
+    ```
 
-
-Then install `ida_client`:
-
-On Windows:
-```
-$ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client"
-```
-
-On Linux / Mac OS X:
-```
-$ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
-```
-
-Then in python terminal:
-```
->>> import ida_client
->>>
->>> client = ida_client.Client(['http://localhost:4001', 'http://localhost:4002'])
->>> 
->>> client.send_command('idal -Sextract_file_functions.py -A zlib.dll.sample', timeout=600)
-True
->>>
->>> files = ['zlib.dll.sample', 'Win32OpenSSL.sample']
->>>
->>> # Building list of commands to send at once
->>> commands = ['idal -Sida_python_script.py -A %s' % file for file in files]
->>>
->>> client.send_multiple_commands(commands, timeout=600)
-[True, True]
-```
+3. Send commands to containers:
+    ```
+    >>> import ida_client
+    >>>
+    >>> client = ida_client.Client(['http://localhost:4001', 'http://localhost:4002'])
+    >>> 
+    >>> client.send_command('idal -Sextract_file_functions.py -A zlib.dll.sample', timeout=600)
+    True
+    >>>
+    >>> files = ['zlib.dll.sample', 'Win32OpenSSL.sample']
+    >>>
+    >>> # Building list of commands to send at once
+    >>> commands = ['idal -Sida_python_script.py -A %s' % file for file in files]
+    >>>
+    >>> client.send_multiple_commands(commands, timeout=600)
+    [True, True]
+    ```
 
 ## Advanced Usage
 - Add additional python libraries to the repository's `ida/requirements.txt` before building the image.
