@@ -53,12 +53,12 @@ $ sudo docker run -v ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
 
 Then install `ida_client`:
 
-On **Windows**:
+On Windows:
 ```
 $ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client"
 ```
 
-On **Linux/Mac OS X**:
+On Linux / Mac OS X:
 ```
 $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
 ```
