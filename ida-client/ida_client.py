@@ -5,7 +5,7 @@ import itertools
 import requests
 
 
-class IdaClient:
+class Client:
     """
     This class is used to communicate with a container of IDA via HTTP
     """
@@ -26,7 +26,7 @@ class IdaClient:
         :param timeout: A timeout given for the command (optional)
         :returns True if the command ran successfully, else false
         """
-        res = requests.post('%s/ida/command' % self._urls.__next__(), data=dict(command=command, timeout=timeout))
+        res = requests.post('%s/ida/command' % next(self._urls), data=dict(command=command, timeout=timeout))
         return res.status_code == 200
 
     def execute_multiple_command(self, commands, timeout=None):
