@@ -34,15 +34,18 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 ida ida-service <
 ```
 
 - `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
+
+   *Note: If you use [Docker Toolbox] (https://www.docker.com/products/docker-toolbox) on Windows, you might experience some issues parsing paths. Use `//` in the begging of the paths (see [stackoverflow answer] (http://stackoverflow.com/questions/33312662/docker-toolbox-mount-file-on-windows#answers))*
 - `<host_port>` is the port that the container᾿s HTTP interface is published to the host (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
 - `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 8.
 
 *Note: To run multiple containers on the same host publish each container to a different host port*
 
 ## Usage
-Let's assume we started 2 IDA containers, on `host-1` and `host-2` both published to port 4000.
-
-We can access them from any machine using the `ida_client` python module:
+Let's assume we started 2 IDA containers on `host-1` and `host-2` both published to port 4000.
+And that the files 'sample_a.exe', 'sample_b.exe', 'sample_c.exe' and 'ida_python.script.py' are in the `<host_shared>` directories on both hosts.
+We can analyze the files on the IDA containers from any machine using the `ida_client` python module.
+First install `ida_client`:
 ```
 $ pip install git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client
 ```
@@ -53,7 +56,7 @@ Then:
 >>>
 >>> client = ida_client.Client(['host-1:4000', 'host-2:4000'])
 >>> 
->>> client.send_command('idal -Sida_python_script.py -A sample.exe', timeout=600)
+>>> client.send_command('idal -Sida_python_script.py -A sample_a.exe', timeout=600)
 True
 >>>
 >>> files = ['sample_a.exe', 'sample_b.exe', 'sample_c.exe']
@@ -65,10 +68,10 @@ True
 [True, True, True]
 ```
 
-The sent commands will be executed on the IDA service containers.
-
 ## Advanced Usage
-- Add additional python libraries to the repository's `ida/requirements.txt` before building the image
+- Add additional python libraries to the repository's `ida/requirements.txt` before building the image.
+
+  The IDAPython scripting library [Sark](https://github.com/tmr232/Sark) is already installed.
 - For IDA 64 bit files:
 
     ```
