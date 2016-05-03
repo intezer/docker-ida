@@ -10,6 +10,6 @@ setup(name='ida_client',
       url='https://github.com/intezer/docker-ida',
       author='Intezer',
       author_email='info@intezer.com',
-      packages=['ida_client'],
+      py_modules=['ida_client'],
       zip_safe=False,
       install_requires=install_requires)
