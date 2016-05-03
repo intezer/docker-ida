@@ -39,7 +39,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 - `<host_port>` is the port that the container᾿s HTTP interface is published to the host (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
 - `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 8.
 
-*Note: To run multiple containers on the same host publish each container to a different host port*
+*Note: In order to run multiple containers on the same host, publish each container to a different host port*
 
 ## Usage
 Let's assume we started 2 IDA containers on `host-1` and `host-2` both published to port 4000.
