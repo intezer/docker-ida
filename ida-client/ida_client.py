@@ -26,7 +26,11 @@ class Client:
         :param timeout: A timeout given for the command (optional)
         :returns True if the command ran successfully, else false
         """
-        response = requests.post('%s/ida/command' % next(self._urls), data=dict(command=command, timeout=timeout))
+        data_to_send = dict(command=command)
+        if timeout is not None:
+            data_to_send['timeout'] = timeout
+
+        response = requests.post('%s/ida/command' % next(self._urls), data=data_to_send)
         return response.status_code == 200
 
     def execute_multiple_command(self, commands, timeout=None):
