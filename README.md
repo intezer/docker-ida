@@ -1,5 +1,5 @@
 # IDA in Docker
-Build and run [IDA Pro by Hex Rays] (https://www.hex-rays.com/products/ida/) disassembler in [Docker] (https://www.docker.com/) containers.
+Run [IDA Pro by Hex Rays] (https://www.hex-rays.com/products/ida/) disassembler in [Docker] (https://www.docker.com/) containers.
 Ideal for automating, scaling and distributing the use of IDAPython scripts.
 
 ## Requirements
@@ -30,7 +30,7 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts.
 ## Start an IDA Service Container
 IDA service container receives remote IDA commands over HTTP and executes them. To start a container, run this command:
 ```
-$ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 ida ida-service <cores>
+$ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 ```
 
 - `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
