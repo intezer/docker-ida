@@ -13,7 +13,7 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts.
     $ git clone https://github.com/intezer/docker-ida 
     ```
 
-2. Copy IDA Pro installation file to the `ida` folder:
+2. Copy IDA Pro installation file to the repository's `ida` directory:
 
     ```
     $ cp <ida-installation-path>/.run docker-ida/ida/ida.run
@@ -25,21 +25,23 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts.
     $ docker build -t ida --build-arg IDA_PASSWORD=<password> docker-ida/ida
     ```
 
-    *Note: It is recommended to push the built image to a **private** Docker Hub repository. [Pushing a repository to Docker Hub] (https://docs.docker.com/engine/userguide/containers/dockerrepos/#pushing-a-repository-to-docker-hub)*
+    *Note: It is recommended to push the built image to a __private__ Docker Hub repository. [Pushing a repository to Docker Hub] (https://docs.docker.com/engine/userguide/containers/dockerrepos/#pushing-a-repository-to-docker-hub)*
 
 ## Start an IDA Service Container
+IDA service container receives remote IDA commands over HTTP and executes them. To start a container, run this command:
 ```
 $ docker run -v <host_shared>:/shared -p <host_port>:4000 ida ida-service <cores>
 ```
 
-`<host_shared>` is a local directory containing the files you want IDA to work with. Scripts, files to disassemble, etc.
-`<host_port>` is the port that the container᾿s http interface is published to the host (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
-`<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 4.
+- `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
+- `<host_port>` is the port that the container᾿s HTTP interface is published to the host (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
+- `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 4.
 
 *Note: To run multiple containers on the same host publish each container to a different host port*
 
 ## Usage
-After we run 4 IDA containers, 2 on `host-1` published to ports 4000 and 4001, and 2 on `host-2` published to ports 4000 and 4001.
+Let's assume we started 4 IDA containers, 2 on `host-1` published to ports 4000 and 4001, and 2 on `host-2` published to ports 4000 and 4001.
+
 We can access them from any machine using the `ida_client` python module:
 ```
 $ pip install git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida_client
@@ -54,17 +56,21 @@ Then:
 >>> client.send_command('idal -Sida_python_script.py -A sample.exe', timeout=600)
 True
 >>>
->>> files = [‘sample_a.exe’, ‘sample_b.exe’, ‘sample_c.exe’]
+>>> files = ['sample_a.exe', 'sample_b.exe', 'sample_c.exe']
+>>>
+>>> # Building list of commands to send at once
 >>> commands = ['idal -Sida_python_script.py -A {}'.format(file) for file in files]
+>>>
 >>> client.send_multiple_commands(commands, timeout=600)
 [True, True, True]
 ```
 
-The sent commands will be executed on the IDA containers.
+The sent commands will be executed on the IDA service containers.
 
 ## Advanced Usage
-- Add additional python libraries to `ida/requirements.txt` before building the image
+- Add additional python libraries to the repository's `ida/requirements.txt` before building the image
 - For IDA 64 bit files:
+
     ```
     >>> client.send_command('idal64 -Sida_python_script.py -A sample_x64.exe', timeout=600)
     True
