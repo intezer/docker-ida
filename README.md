@@ -44,7 +44,7 @@ Let's assume we started 4 IDA containers, 2 on `host-1` published to ports 4000 
 
 We can access them from any machine using the `ida_client` python module:
 ```
-$ pip install git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida_client
+$ pip install git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client
 ```
 
 Then:
