@@ -16,13 +16,13 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts.
 2. Copy IDA Pro installation file to the repository's `ida` directory:
 
     ```
-    $ cp <ida-installation-path>/.run docker-ida/ida/ida.run
+    $ cp <ida-installation-file-path> docker-ida/ida/ida.run
     ```
 
 3. Build IDA docker image:
 
     ```
-    $ docker build -t ida --build-arg IDA_PASSWORD=<password> docker-ida/ida
+    $ sudo docker build -t ida --build-arg IDA_PASSWORD=<password> docker-ida/ida
     ```
 
     *Note: It is recommended to push the built image to a __private__ Docker Hub repository. [Pushing a repository to Docker Hub] (https://docs.docker.com/engine/userguide/containers/dockerrepos/#pushing-a-repository-to-docker-hub)*
@@ -30,17 +30,17 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts.
 ## Start an IDA Service Container
 IDA service container receives remote IDA commands over HTTP and executes them. To start a container, run this command:
 ```
-$ docker run -v <host_shared>:/shared -p <host_port>:4000 ida ida-service <cores>
+$ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 ida ida-service <cores>
 ```
 
 - `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
 - `<host_port>` is the port that the container᾿s HTTP interface is published to the host (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
-- `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 4.
+- `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 8.
 
 *Note: To run multiple containers on the same host publish each container to a different host port*
 
 ## Usage
-Let's assume we started 4 IDA containers, 2 on `host-1` published to ports 4000 and 4001, and 2 on `host-2` published to ports 4000 and 4001.
+Let's assume we started 2 IDA containers, on `host-1` and `host-2` both published to port 4000.
 
 We can access them from any machine using the `ida_client` python module:
 ```
@@ -51,7 +51,7 @@ Then:
 ```
 >>> import ida_client
 >>>
->>> client = ida_client.Client(['host-1:4000', 'host-1:4001', 'host-2:4000', 'host-2:4001'])
+>>> client = ida_client.Client(['host-1:4000', 'host-2:4000'])
 >>> 
 >>> client.send_command('idal -Sida_python_script.py -A sample.exe', timeout=600)
 True
