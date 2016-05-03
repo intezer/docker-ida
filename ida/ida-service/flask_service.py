@@ -21,16 +21,18 @@ def execute_command():
 
     command = request.form['command']
     if not command.startswith('idal ') and not command.startswith('idal64 '):
-        return jsonify(error="Command parameter is not 'idal' or 'idal64"), 422
+        return jsonify(error="'command' should start with 'idal' or 'idal64"), 422
 
     try:
         print('Executing %s' % command)
         _, exit_code = pexpect.run(command, timeout=request.form.get('timeout'), withexitstatus=True)
     except pexpect.TIMEOUT:
-        return jsonify(error='request to ida timed out'), 408
+        return jsonify(error='Timeout executing the command'), 408
+    
     print('Finish executing command with status %s' % exit_code)
+    
     if exit_code != 0:
-        return jsonify(error='ida finish with status code %s' % exit_code,status_code=500)
+        return jsonify(error='Command finished with status code %s' % exit_code,status_code=500)
     else:
         return jsonify(message='OK', status_code=200)
 
