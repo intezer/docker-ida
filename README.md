@@ -42,11 +42,16 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 *Note: In order to run multiple containers on the same host, publish each container to a different host port*
 
 ## Usage
-Let's assume we started 2 IDA containers on `host-1` and `host-2` both published to port 4000.
-And that the files 'zlib.dll.sample' and 'Win32OpenSSL.sample' and the script 'extract_file_functions.py' are in the `<host_shared>` directories on both hosts.
-We can analyze the files on the IDA containers from any machine using the `ida_client` python module.
 
-First install `ida_client`:
+Start two IDA containers as daemon:
+
+```
+$ sudo docker run -v ida-docker/example_volume:/shared -p 4001:4000 -d ida 4
+$ sudo docker run -v ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
+```
+
+
+Then install `ida_client`:
 
 On **Windows**:
 ```
@@ -58,11 +63,11 @@ On **Linux/Mac OS X**:
 $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
 ```
 
-Then:
+Then in python terminal:
 ```
 >>> import ida_client
 >>>
->>> client = ida_client.Client(['http://host-1:4000', 'http://host-2:4000'])
+>>> client = ida_client.Client(['http://localhost:4001', 'http://localhost:4002'])
 >>> 
 >>> client.send_command('idal -Sextract_file_functions.py -A zlib.dll.sample', timeout=600)
 True
