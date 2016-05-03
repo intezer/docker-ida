@@ -24,9 +24,12 @@ RUN apt-get -y install --fix-missing \
     libstdc++6:i386 \
     libxext6:i386 \
     libxrender1:i386 \
-    lsb-core
+    lsb-core \
+    python-dev
+
 RUN wget http://security.debian.org/pool/updates/main/o/openssl/libssl0.9.8_0.9.8o-4squeeze14_i386.deb -P /installation
 RUN dpkg -i /installation/libssl0.9.8_0.9.8o-4squeeze14_i386.deb
 
 # Install pip for python 2.7
 RUN apt-get -y install python-pip
+RUN pip2 install --upgrade pip
