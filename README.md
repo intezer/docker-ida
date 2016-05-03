@@ -43,10 +43,17 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 
 ## Usage
 Let's assume we started 2 IDA containers on `host-1` and `host-2` both published to port 4000.
-And that the files 'sample_a.exe', 'sample_b.exe', 'sample_c.exe' and 'ida_python.script.py' are in the `<host_shared>` directories on both hosts.
+And that the files 'zlib.dll.sample' and 'Win32OpenSSL.sample' and the script 'extract_file_functions.py' are in the `<host_shared>` directories on both hosts.
 We can analyze the files on the IDA containers from any machine using the `ida_client` python module.
 
 First install `ida_client`:
+
+On **Windows**:
+```
+$ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client"
+```
+
+On **Linux/Mac OS X**:
 ```
 $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
 ```
@@ -57,16 +64,16 @@ Then:
 >>>
 >>> client = ida_client.Client(['http://host-1:4000', 'http://host-2:4000'])
 >>> 
->>> client.send_command('idal -Sida_python_script.py -A sample_a.exe', timeout=600)
+>>> client.send_command('idal -Sextract_file_functions.py -A zlib.dll.sample', timeout=600)
 True
 >>>
->>> files = ['sample_a.exe', 'sample_b.exe', 'sample_c.exe']
+>>> files = ['zlib.dll.sample', 'Win32OpenSSL.sample']
 >>>
 >>> # Building list of commands to send at once
->>> commands = ['idal -Sida_python_script.py -A {}'.format(file) for file in files]
+>>> commands = ['idal -Sida_python_script.py -A %s' % file for file in files]
 >>>
 >>> client.send_multiple_commands(commands, timeout=600)
-[True, True, True]
+[True, True]
 ```
 
 ## Advanced Usage
