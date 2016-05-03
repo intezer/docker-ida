@@ -46,8 +46,8 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 1. Start two IDA containers as daemon:
     
     ```
-    $ sudo docker run -v /path/to/current/folder/ida-docker/example_volume:/shared -p 4001:4000 -d ida 4
-    $ sudo docker run -v /path/to/current/folder/ida-docker/example_volume:/shared -p 4002:4000 -d ida 4
+    $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4001:4000 -d ida 4
+    $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4002:4000 -d ida 4
     ```
     
     
