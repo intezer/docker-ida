@@ -43,7 +43,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 
 ## Usage
 
-1. Start two IDA containers as daemon:
+1. On the docker enviroment, start two IDA containers as daemon:
     
     ```
     $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4001:4000 -d ida 4
@@ -51,7 +51,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     ```
     
     
-2. Install `ida_client`:
+2. On the host, Install `ida_client`:
     
     On Windows:
     ```
@@ -63,7 +63,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
     ```
 
-3. Send commands to containers:
+3. Send commands to containers (From the host):
     ```
     >>> import ida_client
     >>>
