@@ -1,5 +1,6 @@
 # System imports
 import itertools
+import concurrent.futures
 
 # Third party imports
 import requests
@@ -31,17 +32,25 @@ class Client:
             data_to_send['timeout'] = timeout
 
         response = requests.post('%s/ida/command' % next(self._urls), data=data_to_send)
+
         return response.status_code == 200
 
-    def send_multiple_commands(self, commands, timeout=None):
+    def send_multiple_commands(self, commands, timeout=None, num_of_threads=4):
         """
-        Send a batch of commands to an IDA container via HTTP
+        Send a batch of commands asynchronously to an IDA container via HTTP
         :param commands: An iterable of commands to send to the container
         :param timeout: A timeout given for the command (optional)
-        :returns An array of booleans, one for each command, saying if the command succeeded or not
+        :returns A dictionary where the key is the command and the value is True if succeeded, else false
         """
-        results = []
-        for command in commands:
-            results.append(self.send_command(command, timeout))
+        results = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=num_of_threads) as executor:
+            future_responses = {executor.submit(self.send_command, command, timeout): command for command in commands}
+
+            for response in concurrent.futures.as_completed(future_responses):
+                command = future_responses[response]
+                try:
+                    results[command] = response.result()
+                except Exception as ex:
+                    print('An exception occurred in command %s, The exception was %s' % (command, str(ex)))
 
         return results

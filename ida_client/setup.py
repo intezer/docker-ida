@@ -1,6 +1,4 @@
 from setuptools import setup
-import pip.download
-from pip.req import parse_requirements
 
 setup(name='ida_client',
       version='0.1',
