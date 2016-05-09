@@ -58,12 +58,12 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     
     On Windows:
     ```
-    $ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client"
+    $ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida_client"
     ```
 
     On Linux / Mac OS X:
     ```
-    $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida-client'
+    $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida_client'
     ```
     *Note: pip version must be 8.1.1 or higher*
     
