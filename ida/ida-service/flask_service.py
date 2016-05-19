@@ -57,13 +57,13 @@ def execute_command():
         _, exit_code = pexpect.run(command, timeout=timeout, withexitstatus=True)
     except pexpect.TIMEOUT:
         return jsonify(error='request to ida timed out'), 408
+    finally:
+        file_name = _extract_filename_from_command(command)
+        if file_name is not None:
+            _remove_ida_created_files(file_name)
+        logger.info('Removed ida leftover files')
+
     logger.info('Finish executing command with status %s', exit_code)
-
-    file_name = _extract_filename_from_command(command)
-    if file_name is not None:
-        _remove_ida_created_files(file_name)
-
-    logger.info('Finished cleaning leftover files')
 
     if exit_code != 0:
         return jsonify(error='ida finish with status code %s' % exit_code), 500
