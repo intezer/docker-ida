@@ -61,7 +61,7 @@ def execute_command():
         file_name = _extract_filename_from_command(command)
         if file_name is not None:
             _remove_ida_created_files(file_name)
-        logger.info('Removed ida leftover files')
+            logger.info('Removed ida leftover files')
 
     logger.info('Finish executing command with status %s', exit_code)
 
