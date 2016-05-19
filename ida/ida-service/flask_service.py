@@ -1,5 +1,6 @@
 import logging
 import socket
+import os
 
 import pexpect
 from flask import Flask, request, jsonify
@@ -12,6 +13,8 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
+file_extenstions_to_clean = ['id0', 'id1', 'id2', 'idb', 'nam', 'til']
+
 
 @app.errorhandler(Exception)
 def on_error(exception):
@@ -19,6 +22,23 @@ def on_error(exception):
     response = jsonify(error=exception)
     response.status_code = 500
     return response
+
+
+def _extract_filename_from_command(command):
+    split_command = command.split(' ')
+
+    if '-A' not in split_command or split_command[-1] == '-A':
+        return None
+
+    return split_command[split_command.index('-A') + 1]
+
+
+def _remove_ida_created_files(file_name):
+    base_name = os.path.splitext(file_name)[0]
+    for file_extension in file_extenstions_to_clean:
+        file_to_remove = "%s.%s" % (base_name, file_extension)
+        if os.path.isfile(file_to_remove):
+            os.remove(file_to_remove)
 
 
 @app.route('/ida/command', methods=['POST'])
@@ -38,6 +58,13 @@ def execute_command():
     except pexpect.TIMEOUT:
         return jsonify(error='request to ida timed out'), 408
     logger.info('Finish executing command with status %s', exit_code)
+
+    file_name = _extract_filename_from_command(command)
+    if file_name is not None:
+        _remove_ida_created_files(file_name)
+
+    logger.info('Finished cleaning leftover files')
+
     if exit_code != 0:
         return jsonify(error='ida finish with status code %s' % exit_code), 500
     else:
