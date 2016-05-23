@@ -20,7 +20,7 @@ class Client:
             raise ValueError('Invalide "urls" value')
         self._urls = itertools.cycle(urls)
 
-    def send_command(self, command, timeout=None) -> bool:
+    def send_command(self, command, timeout=None):
         """
         Send a command to an IDA container via HTTP
         :param command: The command to send, should start with idal or idal64
