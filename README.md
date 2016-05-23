@@ -54,7 +54,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 
 **On The client:**
     
-2. Install `ida_client`:
+2. Install `ida_client` Python library:
     
     On Windows:
     ```
@@ -67,8 +67,8 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     ```
     *Note: pip version must be 8.1.1 or higher*
     
-3. Send commands to containers:
-    ```
+3. Send commands to the containers using the Python library:
+    ```python
     >>> import ida_client
     >>>
     >>> client = ida_client.Client(['http://localhost:4001', 'http://localhost:4002'])
@@ -91,7 +91,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
   The [Sark](https://github.com/tmr232/Sark) library is already installed for rapid IDAPython scripting.
 - For IDA 64 bit files:
 
-    ```
+    ```python
     >>> client.send_command('idal64 -Sida_python_script.py -A sample_x64.exe', timeout=600)
     True
     ```
