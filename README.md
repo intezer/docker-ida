@@ -4,7 +4,7 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts to p
 
 ## Requirements
 - Machine with Docker installed. [Install Docker] (https://docs.docker.com/engine/installation/)
-- IDA Pro Linux version installation file (.run) and valid password. [Get IDA Pro] (https://www.hex-rays.com/products/ida/)
+- IDA Pro Linux version installation file (.run) and a valid license for running multiple instances. [Get IDA Pro] (https://www.hex-rays.com/products/ida/)
 
 ## Installation
 1. Clone `docker-ida` repository:
@@ -36,7 +36,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 - `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
 
    *Note: If you use [Docker Toolbox] (https://www.docker.com/products/docker-toolbox) on Windows, you might experience some issues parsing paths. Use `//` in the beginning of the paths (see [discussion on stackoverflow] (http://stackoverflow.com/questions/33312662/docker-toolbox-mount-file-on-windows#answers))*
-- `<host_port>` is the port that the container᾿s HTTP interface is published to the host (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
+- `<host_port>` is the port you tell the host you would like to use to connect to the specific docker container. (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
 - `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 8.
 
 *Note: In order to run multiple containers on the same host, publish each container to a different host port*
@@ -98,4 +98,5 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 - You can use any of the [IDA command line arguments](https://www.hex-rays.com/products/ida/support/idadoc/417.shtml) (except for GUI-related switches)
 
 ## Notes
-Tested with IDA 6.9
+- Tested with IDA 6.9
+- You are required to read the [IDA License Agreement](https://www.hex-rays.com/products/ida/ida_eula.pdf) prior to using this project.
