@@ -5,7 +5,7 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts to p
 
 ![alt tag](https://raw.githubusercontent.com/intezer/docker-ida/master/media/docker-ida.png)
 
-Blog post about this project: http://blog.intezer.com/docker-ida
+Our blog post about this project: http://blog.intezer.com/docker-ida
 
 ## Requirements
 - Machine with Docker installed. [Install Docker] (https://docs.docker.com/engine/installation/)
