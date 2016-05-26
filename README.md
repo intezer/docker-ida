@@ -2,6 +2,9 @@
 Run [IDA Pro by Hex Rays] (https://www.hex-rays.com/products/ida/) disassembler in [Docker] (https://www.docker.com/) containers.
 Ideal for automating, scaling and distributing the use of IDAPython scripts to perform large-scale reverse engineering tasks.
 
+
+![alt tag](https://raw.githubusercontent.com/intezer/docker-ida/add-image/media/docker-ida.png)
+
 ## Requirements
 - Machine with Docker installed. [Install Docker] (https://docs.docker.com/engine/installation/)
 - IDA Pro Linux version installation file (.run) and a valid license for running multiple instances. [Get IDA Pro] (https://www.hex-rays.com/products/ida/)
