@@ -5,6 +5,8 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts to p
 
 ![alt tag](https://raw.githubusercontent.com/intezer/docker-ida/master/media/docker-ida.png)
 
+Blog post about this project: http://blog.intezer.com/docker-ida
+
 ## Requirements
 - Machine with Docker installed. [Install Docker] (https://docs.docker.com/engine/installation/)
 - IDA Pro Linux version installation file (.run) and a valid license for running multiple instances. [Get IDA Pro] (https://www.hex-rays.com/products/ida/)
@@ -103,3 +105,4 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 ## Notes
 - Tested with IDA 6.9
 - You are required to read the [IDA License Agreement](https://www.hex-rays.com/products/ida/ida_eula.pdf) prior to using this project.
+- More information on our blog post: http://blog.intezer.com/docker-ida
