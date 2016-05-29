@@ -102,6 +102,13 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     ```
 - You can use any of the [IDA command line arguments](https://www.hex-rays.com/products/ida/support/idadoc/417.shtml) (except for GUI-related switches)
 
+## Troubleshooting
+If the script doesn't run correctly, you can:
+- Examine the log files at `<volume_folder>/logs/` folder. Each container will have a different log file named `<container-name>-ida-service.log`
+- Make sure the script is python2.7 compatible. Python 3.x won't work because IDA-Python doesn't support python 3
+- If the script uses third-party libraries, make sure you add them to the `requirements.txt` **before** you build the docker image
+- Rebuild the docker container
+
 ## Notes
 - Tested with IDA 6.9
 - You are required to read the [IDA License Agreement](https://www.hex-rays.com/products/ida/ida_eula.pdf) prior to using this project.
