@@ -104,10 +104,10 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 
 ## Troubleshooting
 If the script doesn't run correctly, you can:
-- Examine the log files at `<volume_folder>/logs/` folder. Each container will have a different log file named `<container-name>-ida-service.log`
-- Make sure the script is python2.7 compatible. Python 3.x won't work because IDA-Python doesn't support python 3
-- If the script uses third-party libraries, make sure you add them to the `requirements.txt` **before** you build the docker image
-- Rebuild the docker container
+- Examine the log files in the volume `<host_shared>/logs/`. Each container has a different log file named `<container-name>-ida-service.log`
+- Make sure the IDAPython script is python 2.7 compatible. Python 3.x is not supported in IDAPython.
+- Make sure to add python libraries to the `requirements.txt` **before** building the docker image. When `requirements.txt` changes the docker image and containers can always be rebuilt.
+- Make sure the paths to the IDAPython script and the files to disassemble are relative to the `<host_shared>` volume.
 
 ## Notes
 - Tested with IDA 6.9
