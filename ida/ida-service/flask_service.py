@@ -5,9 +5,12 @@ import os
 import pexpect
 from flask import Flask, request, jsonify
 
+logs_directory = '/shared/logs'
+if not os.path.isdir(logs_directory):
+    os.makedirs(logs_directory)
 logging.basicConfig(level='INFO', format='%(asctime)s [%(levelname)s] %(message)s',
-                    filename='/shared/%s-ida-service.log' % socket.gethostname(),
-                    filemode='w+')
+                    filename='%s/%s-ida-service.log' % (logs_directory, socket.gethostname()),
+                    filemode='a')
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
@@ -48,6 +51,10 @@ def execute_command():
         return jsonify(error="Missing parameter 'command'"), 422
 
     command = request.form['command']
+    file_name = _extract_filename_from_command(command)
+    if file_name is not None and not os.path.isfile(file_name):
+        logger.warn("Couldn't find file %s", file_name)
+
     if not command.startswith('idal ') and not command.startswith('idal64 '):
         return jsonify(error="'idal' and 'idal64' are the only valid commands"), 422
 
@@ -58,12 +65,14 @@ def execute_command():
     except pexpect.TIMEOUT:
         return jsonify(error='request to ida timed out'), 408
     finally:
-        file_name = _extract_filename_from_command(command)
         if file_name is not None:
             _remove_ida_created_files(file_name)
             logger.info('Removed ida leftover files')
 
-    logger.info('Finish executing command with status %s', exit_code)
+    if exit_code == 0:
+        logger.info('Command %s finished executing successfully', command)
+    else:
+        logger.warn("Command %s didn't finish correctly, IDA returned exit code %s", command, exit_code)
 
     if exit_code != 0:
         return jsonify(error='ida finish with status code %s' % exit_code), 500
