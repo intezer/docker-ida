@@ -15,7 +15,7 @@ Our blog post about this project: http://blog.intezer.com/docker-ida
 1. Clone `docker-ida` repository:
 
     ```
-    $ git clone https://github.com/intezer/docker-ida 
+    $ git clone https://github.com/intezer/docker-ida
     ```
 
 2. Copy IDA Pro installation file to the repository's `ida` directory:
@@ -35,7 +35,7 @@ Our blog post about this project: http://blog.intezer.com/docker-ida
 ## Start an IDA Service Container
 IDA service container receives remote IDA commands over HTTP and executes them. To start a container, run this command:
 ```
-$ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
+$ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida -c <cores> -t <timeout>
 ```
 
 - `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
@@ -43,6 +43,7 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
    *Note: If you use [Docker Toolbox] (https://www.docker.com/products/docker-toolbox) on Windows, you might experience some issues parsing paths. Use `//` in the beginning of the paths (see [discussion on stackoverflow] (http://stackoverflow.com/questions/33312662/docker-toolbox-mount-file-on-windows#answers))*
 - `<host_port>` is the port you tell the host you would like to use to connect to the specific docker container. (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
 - `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 8.
+- `<timeout>` is the server timeout for each request. Default is 30.
 
 *Note: In order to run multiple containers on the same host, publish each container to a different host port*
 
@@ -51,16 +52,16 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
 **On The server:**
 
 - Start two IDA containers as daemon:
-    
+
     ```
-    $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4001:4000 -d ida 4
-    $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4002:4000 -d ida 4
+    $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4001:4000 -d ida -c 4
+    $ sudo docker run -v /path/to/current/folder/docker-ida/example_volume:/shared -p 4002:4000 -d ida -c 4
     ```
 
 **On The client:**
-    
+
 2. Install `ida_client` Python library:
-    
+
     On Windows:
     ```
     $ pip install "git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida_client"
@@ -71,13 +72,13 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida <cores>
     $ pip install 'git+https://github.com/intezer/docker-ida#egg=ida_client&subdirectory=ida_client'
     ```
     *Note: pip version must be 8.1.1 or higher*
-    
+
 3. Send commands to the containers using the Python library:
     ```python
     >>> import ida_client
     >>>
     >>> client = ida_client.Client(['http://localhost:4001', 'http://localhost:4002'])
-    >>> 
+    >>>
     >>> client.send_command('idal -Sextract_file_functions.py -A zlib.dll.sample', timeout=600)
     True
     >>>
