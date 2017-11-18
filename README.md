@@ -1,5 +1,5 @@
 # Docker IDA
-Run [IDA Pro by Hex Rays] (https://www.hex-rays.com/products/ida/) disassembler in [Docker] (https://www.docker.com/) containers.
+Run [IDA Pro by Hex Rays](https://www.hex-rays.com/products/ida/) disassembler in [Docker](https://www.docker.com/) containers.
 Ideal for automating, scaling and distributing the use of IDAPython scripts to perform large-scale reverse engineering tasks.
 
 
@@ -8,8 +8,8 @@ Ideal for automating, scaling and distributing the use of IDAPython scripts to p
 Our blog post about this project: http://blog.intezer.com/docker-ida
 
 ## Requirements
-- Machine with Docker installed. [Install Docker] (https://docs.docker.com/engine/installation/)
-- IDA Pro Linux version installation file (.run) and a valid license for running multiple instances. [Get IDA Pro] (https://www.hex-rays.com/products/ida/)
+- Machine with Docker installed. [Install Docker](https://docs.docker.com/engine/installation/)
+- IDA Pro Linux version installation file (.run) and a valid license for running multiple instances. [Get IDA Pro](https://www.hex-rays.com/products/ida/)
 
 ## Installation
 1. Clone `docker-ida` repository:
@@ -30,7 +30,7 @@ Our blog post about this project: http://blog.intezer.com/docker-ida
     $ sudo docker build -t ida --build-arg IDA_PASSWORD=<password> docker-ida/ida
     ```
 
-    *Note: It is recommended to push the built image to a __private__ Docker Hub repository ([Pushing a repository to Docker Hub] (https://docs.docker.com/engine/userguide/containers/dockerrepos/#pushing-a-repository-to-docker-hub)). Otherwise you have to build the image on every machine*
+    *Note: It is recommended to push the built image to a __private__ Docker Hub repository ([Pushing a repository to Docker Hub](https://docs.docker.com/engine/userguide/containers/dockerrepos/#pushing-a-repository-to-docker-hub)). Otherwise you have to build the image on every machine*
 
 ## Start an IDA Service Container
 IDA service container receives remote IDA commands over HTTP and executes them. To start a container, run this command:
@@ -40,8 +40,8 @@ $ sudo docker run -v <host_shared>:/shared -p <host_port>:4000 -it ida -c <cores
 
 - `<host_shared>` is a local directory on the host containing the files you want IDA to work with. Scripts, files to disassemble, etc.
 
-   *Note: If you use [Docker Toolbox] (https://www.docker.com/products/docker-toolbox) on Windows, you might experience some issues parsing paths. Use `//` in the beginning of the paths (see [discussion on stackoverflow] (http://stackoverflow.com/questions/33312662/docker-toolbox-mount-file-on-windows#answers))*
-- `<host_port>` is the port you tell the host you would like to use to connect to the specific docker container. (see [Publish port] (https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
+   *Note: If you use [Docker Toolbox](https://www.docker.com/products/docker-toolbox) on Windows, you might experience some issues parsing paths. Use `//` in the beginning of the paths (see [discussion on stackoverflow](http://stackoverflow.com/questions/33312662/docker-toolbox-mount-file-on-windows#answers))*
+- `<host_port>` is the port you tell the host you would like to use to connect to the specific docker container. (see [Publish port](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port-p-expose))
 - `<cores>` is the number of IDA worker processes. This number should be up to 4 workers per core in the host. Default is 8.
 - `<timeout>` is the server timeout for each request. Default is 30.
 
