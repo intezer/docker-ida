@@ -113,4 +113,4 @@ If the script doesn't run correctly:
 ## Notes
 - Tested with IDA 6.9
 - You are required to read the [IDA License Agreement](https://www.hex-rays.com/products/ida/ida_eula.pdf) prior to using this project.
-- More information on our blog post: http://blog.intezer.com/docker-ida
+- More information on Intezer's blog post: [http://blog.intezer.com/docker-ida](https://web.archive.org/web/20170104214437/blog.intezer.com/docker-ida)
